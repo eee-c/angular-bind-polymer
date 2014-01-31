@@ -1,4 +1,4 @@
-angular.module('bind.polymer', []).
+angular.module('bindPolymer', []).
 directive('bindPolymer', function($q, $timeout) {
   return {
     restrict: 'A',
