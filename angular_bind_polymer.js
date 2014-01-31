@@ -1,4 +1,4 @@
-angular.module('bindPolymer', []).
+angular.module('eee-c.angularBindPolymer', []).
 directive('bindPolymer', function($q, $timeout) {
   return {
     restrict: 'A',
@@ -41,7 +41,6 @@ directive('bindPolymer', function($q, $timeout) {
           var observer = new MutationObserver(function() {
             scope.$apply();
           });
-
           observer.observe(polymer(), {attributes: true});
 
           for (var _attr in attrMap) {
