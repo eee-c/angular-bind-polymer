@@ -1,6 +1,4 @@
-(function () {
-  'use strict';
-  angular.module('bind.polymer', []).
+angular.module('bind.polymer', []).
 directive('bindPolymer', function($q, $timeout) {
   return {
     restrict: 'A',
@@ -58,5 +56,3 @@ directive('bindPolymer', function($q, $timeout) {
     }
   };
 });
-
-}());
