@@ -1,0 +1,17 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="x-double" attributes="in out">
+  <template></template>
+  <script>
+    Polymer("x-double", {
+      publish: {
+        out: {value: 0, reflect: true}
+      },
+      ready: function(){
+        this.inChanged();
+      },
+      inChanged: function(){
+        this.out = parseInt(this.in) * 2;
+      }
+    });
+  </script>
+</polymer-element>

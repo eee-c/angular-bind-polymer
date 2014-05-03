@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Smoke Test</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+    <!-- 1. Load Polymer before any code that touches the DOM. -->
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+
+    <!-- 2. Load component(s) -->
+    <link rel="import" href="test/x-double.html">
+
+
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="angular_bind_polymer.js"></script>
+
+    <script>
+      angular.module('smokeTest', [
+       'eee-c.angularBindPolymer'
+      ]);
+    </script>
+
+  </head>
+  <body ng-app="smokeTest">
+    <div class="container">
+      <h1>Smoke Test: angular-bind-polymer</h1>
+
+      <p>
+        in:<br>
+        <input type=text value="6" ng-model=in>
+      </p>
+      <p>
+        out:
+        <pre ng-bind="doubled"></pre>
+      </p>
+      <x-double bind-polymer in="{{in}}" out="{{doubled}}"></x-double>
+    </div>
+  </body>
+</html>

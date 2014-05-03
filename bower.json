@@ -1,6 +1,6 @@
 {
   "name": "angular-bind-polymer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
     "Chris Strom <github@eeecomputes.com>"
   ],
@@ -20,6 +20,10 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.9"
+    "angular": "~1.2.16"
+  },
+  "devDependencies": {
+    "polymer": "Polymer/polymer",
+    "angular-mocks": "~1.2.16"
   }
 }

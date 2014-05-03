@@ -16,7 +16,11 @@ directive('bindPolymer', function($q, $timeout) {
 
       // Always get updated Polymer element
       function polymer() {
-        return element.parent().find(element[0].nodeName)[0];
+        var all = document.querySelectorAll(element[0].nodeName);
+        for (var i=0; i<all.length; i++) {
+          if (all[i] == element[0]) return all[i];
+          if (all[i].impl == element[0]) return all[i];
+        }
       }
 
       // Helper to wait for Polymer to expose the observe property
