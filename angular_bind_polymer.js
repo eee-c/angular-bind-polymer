@@ -23,39 +23,20 @@ directive('bindPolymer', function($q, $timeout) {
         }
       }
 
-      // Helper to wait for Polymer to expose the observe property
-      function onPolymerReady() {
-        var deferred = $q.defer();
-
-        function _checkForObserve() {
-          polymer().observe ?
-            deferred.resolve() :
-            $timeout(_checkForObserve, 10);
-        }
-        _checkForObserve();
-
-        return deferred.promise;
-      }
-
-      // When Polymer is ready, establish the bound variable watch
-      onPolymerReady().
-        then(function(){
-          // When Polymer sees a change to the bound variable,
-          // $apply / $digest the changes here in Angular
-          var observer = new MutationObserver(function() {
-            scope.$apply();
-          });
-          observer.observe(polymer(), {attributes: true});
-
-          for (var _attr in attrMap) {
-            scope.$watch(
-              function() {return element.attr(_attr);},
-              function(value) {
-                scope[attrMap[_attr]] = value;
-              }
-            );
+      // When Polymer sees a change to the bound variable,
+      // $apply / $digest the changes here in Angular
+      var observer = new MutationObserver(function() {
+        scope.$apply();
+      });
+      observer.observe(polymer(), {attributes: true});
+      for (var _attr in attrMap) {
+        scope.$watch(
+          function() {return element.attr(_attr);},
+          function(value) {
+            scope[attrMap[_attr]] = value;
           }
-        });
+        );
+      }
     }
   };
 });

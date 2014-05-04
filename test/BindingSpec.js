@@ -23,7 +23,7 @@ describe('Custom Elements on their own', function(){
 
 describe('Double binding', function(){
   // Build in setup, check expectations in tests
-  var ngElement;
+  var ngElement, polymerElement;
 
   // Load the angular-bind-polymer directive
   beforeEach(module('eee-c.angularBindPolymer'));
@@ -38,6 +38,7 @@ describe('Double binding', function(){
 
     // The angular element is the first child (the <pre> tag)
     ngElement = container.children[0];
+    polymerElement = container.children[1];
 
     // Compile the document as an angular view
     $compile(document.body)($rootScope);
@@ -47,10 +48,11 @@ describe('Double binding', function(){
     var done = false;
     setTimeout(function(){ done = true; }, 0);
     waitsFor(function(){ return done; });
-
-    // ??? has done its thing, so flush the current timeout
-    runs(function(){ $timeout.flush(); });
   }));
+
+  it('sees polymer update properly', function(){
+    expect(polymerElement.getAttribute('out')).toEqual('4');
+  });
 
   // The actual test
   it('sees values from polymer', function(){
