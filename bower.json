@@ -1,8 +1,9 @@
 {
   "name": "angular-bind-polymer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "authors": [
-    "Chris Strom <github@eeecomputes.com>"
+    "Chris Strom <github@eeecomputes.com>",
+    "Jonah Dahlquist <jonah@nucleussystems.com>"
   ],
   "description": "Angular directive for *double* variable binding of Polymer attributes.",
   "main": "angular_bind_polymer.js",
