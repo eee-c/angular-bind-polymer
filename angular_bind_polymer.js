@@ -29,12 +29,20 @@ directive('bindPolymer', function($q, $timeout) {
         scope.$apply();
       });
       observer.observe(polymer(), {attributes: true});
+
+      var makeDetector = function(_attr) {
+        return function() { return element.attr(_attr); };
+      };
+      var makeChanger = function(_attr) {
+        return function(value) {
+          scope[attrMap[_attr]] = value;
+        };
+      };
+
       for (var _attr in attrMap) {
         scope.$watch(
-          function() {return element.attr(_attr);},
-          function(value) {
-            scope[attrMap[_attr]] = value;
-          }
+          makeDetector(_attr),
+          makeChanger(_attr)
         );
       }
     }
