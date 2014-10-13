@@ -20,7 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.16"
+    "angular": "~1.2.26"
   },
   "devDependencies": {
     "polymer": "Polymer/polymer",

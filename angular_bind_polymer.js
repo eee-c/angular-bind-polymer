@@ -25,16 +25,15 @@ directive('bindPolymer', function($q, $timeout) {
 
       // When Polymer sees a change to the bound variable,
       // $apply / $digest the changes here in Angular
-      var observer = new MutationObserver(function() {
-        scope.$apply();
-      });
-      observer.observe(polymer(), {attributes: true});
-      for (var _attr in attrMap) {
+      new MutationObserver(function() { scope.$apply(); }).
+        observe(polymer(), {attributes: true});
+
+      for (var _attr in attrMap) { watch (_attr); }
+
+      function watch(attr) {
         scope.$watch(
-          function() {return element.attr(_attr);},
-          function(value) {
-            scope[attrMap[_attr]] = value;
-          }
+          function() { return element.attr(attr); },
+          function(value) { scope[attrMap[attr]] = value; }
         );
       }
     }
