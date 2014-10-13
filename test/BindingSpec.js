@@ -1,19 +1,17 @@
 describe('Custom Elements on their own', function(){
   var container, customElement;
-  beforeEach(function(){
+  beforeEach(function(done){
     container = document.createElement('div');
     document.body.appendChild(container);
 
     container.innerHTML = '<x-double in=42></x-double>';
     customElement = container.children[0];
 
-    var done = false;
-    setTimeout(function(){ done = true; }, 0);
-    waitsFor(function(){ return done; });
+    setTimeout(done, 0);
   });
 
   afterEach(function(){
-    // container.remove();
+    container.remove();
   });
 
   it('works', function(){
@@ -21,34 +19,20 @@ describe('Custom Elements on their own', function(){
   });
 });
 
-describe('Double binding', function(){
+describe('Double binding', function(done){
   // Build in setup, check expectations in tests
   var ngElement, polymerElement;
 
-  // Load the angular-bind-polymer directive
-  beforeEach(module('eee-c.angularBindPolymer'));
-
-  beforeEach(inject(function($compile, $rootScope, $timeout) {
-    // Container to hold angular and polymer elements
-    var container = document.createElement('div');
-    container.innerHTML =
-      '<pre ng-bind="answer"></pre>' +
-      '<x-double bind-polymer in="2" out="{{answer}}"></x-double>';
-    document.body.appendChild(container);
-
+  beforeEach(function(done){
     // The angular element is the first child (the <pre> tag)
     ngElement = container.children[0];
     polymerElement = container.children[1];
 
-    // Compile the document as an angular view
-    $compile(document.body)($rootScope);
-    $rootScope.$digest();
+    polymerElement.setAttribute('in', '2');
 
     // Must wait one event loop for ??? to do its thing
-    var done = false;
-    setTimeout(function(){ done = true; }, 0);
-    waitsFor(function(){ return done; });
-  }));
+    setTimeout(done, 0); // One event loop for Polymer to process
+  });
 
   it('sees polymer update properly', function(){
     expect(polymerElement.getAttribute('out')).toEqual('4');

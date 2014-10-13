@@ -15,10 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/PolymerSetup.js',
+      'bower_components/platform/platform.js',
       'bower_components/angular/angular.js',
       'bower_components/angular*/angular-*.js',
       'angular_bind_polymer.js',
+
+      'test/PolymerSetup.js',
+
       {pattern: 'bower_components/**', included: false, served: true},
       {pattern: 'test/*.html', included: false, served: true},
       'test/*Spec.js'
