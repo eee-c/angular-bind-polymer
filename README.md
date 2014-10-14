@@ -6,7 +6,7 @@ Angular directive for *double* variable binding of Polymer attributes.
 Installation
 ------------
 
-Use bower to install: 
+Use bower to install:
 
 ```
 $ bower install angular-bind-polymer
@@ -15,11 +15,15 @@ $ bower install angular-bind-polymer
 Usage
 -----
 
-Source the directive per normal:
+Script order is important. The web components platform (polyfills) need to be loaded first, followed by the Angular library and then this library (angular-bind-polymer):
 
 ```html
-    <script src="bower_components/angular-bind-polymer/angular_bind_polymer.js"></script>
+<script src="bower_components/platform/platform.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="angular_bind_polymer.js"></script>
 ```
+
+The Angular module needs to be inititialized before the Polymer elements are imported otherwise Polymer will overwrite the attributes before angular-bind-polymer has a chance to process them.
 
 Add `eee-c.angularBindPolymer` as dependency for your Angular application:
 
@@ -29,7 +33,13 @@ var PizzaStoreApp = angular.module('pizzaStoreApp', [
 ]);
 ```
 
-Apply the `bind-polymer` directive to your custom elements:
+The final piece of setup is to import the Polymer elements:
+
+```html
+<link rel="import" href="test/x-double.html">
+```
+
+To bind values from Polymer elements, apply the `bind-polymer` directive:
 
 ```html
 <x-pizza bind-polymer state="{{pizzaState}}"></x-pizza>

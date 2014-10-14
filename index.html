@@ -7,16 +7,18 @@
     <!-- 1. Load Polymer before any code that touches the DOM. -->
     <script src="bower_components/platform/platform.js"></script>
 
+    <!-- 2. Load Angular and angular-bind-polymer -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="angular_bind_polymer.js"></script>
 
+    <!-- 3. Establish the Angular application -->
     <script>
       angular.module('smokeTest', [
        'eee-c.angularBindPolymer'
       ]);
     </script>
 
-    <!-- 2. Load component(s) -->
+    <!-- 4. Load Polymer component(s) -->
     <link rel="import" href="test/x-double.html">
   </head>
   <body ng-app="smokeTest">
