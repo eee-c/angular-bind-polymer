@@ -9,10 +9,21 @@
 // Container to hold angular and polymer elements
 var container = document.createElement('div');
 container.setAttribute('ng-app', 'acceptanceTest');
-container.innerHTML =
+document.body.appendChild(container);
+
+var container1 = document.createElement('div');
+container1.innerHTML =
   '<pre ng-bind="answer"></pre>' +
   '<x-double bind-polymer in="1" out="{{answer}}"></x-double>';
-document.body.appendChild(container);
+container.appendChild(container1);
+
+var container2 = document.createElement('div');
+container2.innerHTML =
+  '<pre ng-bind="answer2a"></pre>' +
+  '<x-double bind-polymer in="1" out="{{answer2a}}"></x-double>' +
+  '<pre ng-bind="answer2b"></pre>' +
+  '<x-double bind-polymer in="1" out="{{answer2b}}"></x-double>';
+container.appendChild(container2);
 
 // Load the angular-bind-polymer directive
 angular.module('acceptanceTest', [

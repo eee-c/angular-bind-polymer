@@ -14,19 +14,10 @@ directive('bindPolymer', function($q, $timeout) {
         }
       }
 
-      // Always get updated Polymer element
-      function polymer() {
-        var all = document.querySelectorAll(element[0].nodeName);
-        for (var i=0; i<all.length; i++) {
-          if (all[i] == element[0]) return all[i];
-          if (all[i].impl == element[0]) return all[i];
-        }
-      }
-
       // When Polymer sees a change to the bound variable,
       // $apply / $digest the changes here in Angular
       new MutationObserver(function() { scope.$apply(); }).
-        observe(polymer(), {attributes: true});
+        observe(element[0], {attributes: true});
 
       for (var _attr in attrMap) { watch (_attr); }
 

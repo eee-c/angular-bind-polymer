@@ -25,8 +25,8 @@ describe('Double binding', function(done){
 
   beforeEach(function(done){
     // The angular element is the first child (the <pre> tag)
-    ngElement = container.children[0];
-    polymerElement = container.children[1];
+    ngElement = container1.children[0];
+    polymerElement = container1.children[1];
 
     polymerElement.setAttribute('in', '2');
 
@@ -41,5 +41,43 @@ describe('Double binding', function(done){
   // The actual test
   it('sees values from polymer', function(){
     expect(ngElement.innerHTML).toEqual('4');
+  });
+});
+
+describe('Double binding multiple polymer instances', function(done){
+  // Build in setup, check expectations in tests
+  var ngElementA, polymerElementA;
+  var ngElementB, polymerElementB;
+
+  beforeEach(function(done){
+    // The angular element is the first child (the <pre> tag)
+    ngElementA =      container2.children[0];
+    polymerElementA = container2.children[1];
+    ngElementB =      container2.children[2];
+    polymerElementB = container2.children[3];
+
+    polymerElementA.setAttribute('in', '2');
+    polymerElementB.setAttribute('in', '4');
+
+    // Must wait one event loop for ??? to do its thing
+    setTimeout(done, 0); // One event loop for Polymer to process
+  });
+
+  it('sees first polymer update properly', function(){
+    expect(polymerElementA.getAttribute('out')).toEqual('4');
+  });
+
+  // The actual test
+  it('sees values from first polymer', function(){
+    expect(ngElementA.innerHTML).toEqual('4');
+  });
+
+  it('sees second polymer update properly', function(){
+    expect(polymerElementB.getAttribute('out')).toEqual('8');
+  });
+
+  // The actual test
+  it('sees values from second polymer', function(){
+    expect(ngElementB.innerHTML).toEqual('8');
   });
 });
