@@ -1,5 +1,5 @@
 angular.module('eee-c.angularBindPolymer', []).
-directive('bindPolymer', function($q, $timeout) {
+directive('bindPolymer', function() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
