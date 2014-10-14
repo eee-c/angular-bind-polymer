@@ -25,6 +25,13 @@ container2.innerHTML =
   '<x-double bind-polymer in="1" out="{{answer2b}}"></x-double>';
 container.appendChild(container2);
 
+var object_container = document.createElement('div');
+object_container.innerHTML =
+  '<pre ng-bind="my.answer"></pre>' +
+  '<x-double bind-polymer in="1" out="{{my.answer}}"></x-double>';
+container.appendChild(object_container);
+
+
 // Load the angular-bind-polymer directive
 angular.module('acceptanceTest', [
   'eee-c.angularBindPolymer'

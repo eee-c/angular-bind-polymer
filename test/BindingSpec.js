@@ -81,3 +81,28 @@ describe('Double binding multiple polymer instances', function(done){
     expect(ngElementB.innerHTML).toEqual('8');
   });
 });
+
+describe('binding objects', function(){
+  // Build in setup, check expectations in tests
+  var ngElement, polymerElement;
+
+  beforeEach(function(done){
+    // The angular element is the first child (the <pre> tag)
+    ngElement = object_container.children[0];
+    polymerElement = object_container.children[1];
+
+    polymerElement.setAttribute('in', '2');
+
+    // Must wait one event loop for ??? to do its thing
+    setTimeout(done, 0); // One event loop for Polymer to process
+  });
+
+  it('sees polymer update properly', function(){
+    expect(polymerElement.getAttribute('out')).toEqual('4');
+  });
+
+  // The actual test
+  it('sees values from polymer', function(){
+    expect(ngElement.innerHTML).toEqual('4');
+  });
+});

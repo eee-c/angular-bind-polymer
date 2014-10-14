@@ -7,7 +7,7 @@ directive('bindPolymer', function($q, $timeout) {
       for (var prop in attrs.$attr) {
         if (prop != 'bindPolymer') {
           var _attr = attrs.$attr[prop];
-          var _match = element.attr(_attr).match(/\{\{\s*(\w+)\s*\}\}/);
+          var _match = element.attr(_attr).match(/\{\{\s*([\.\w]+)\s*\}\}/);
           if (_match) {
             attrMap[_attr] = _match[1];
           }
@@ -24,7 +24,17 @@ directive('bindPolymer', function($q, $timeout) {
       function watch(attr) {
         scope.$watch(
           function() { return element.attr(attr); },
-          function(value) { scope[attrMap[attr]] = value; }
+          function(value) {
+            var tokens = attrMap[attr].split(/\./);
+            var parent = scope;
+            for (var i=0; i<tokens.length-1; i++) {
+              if (typeof(parent[tokens[i]]) == 'undefined') {
+                parent[tokens[i]] = {};
+              }
+              parent = parent[tokens[i]];
+            }
+            parent[tokens[tokens.length - 1]] = value;
+          }
         );
       }
     }
