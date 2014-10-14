@@ -1,7 +1,9 @@
 angular-bind-polymer
 ====================
 
-Angular directive for *double* variable binding of Polymer attributes.
+Angular directive for *double* variable binding of Polymer attributes. 
+
+N.B. This will not work with raw paper/core elements because they do not publish their attributes. See note below on Polymer Usage for details.
 
 Installation
 ------------
@@ -49,3 +51,36 @@ To bind values from Polymer elements, apply the `bind-polymer` directive:
 Changes from the `<x-pizza>` custom element will now update the `pizzaState` variable in local scope.
 
 _Note:_ changes in Angular's scope are already bound. That is, changes to `pizzaState` will update the `<x-pizza>` custom element without this or any other modules. This directive is soley used to watch for changes in custom elements for the purposes of updating a bound variable in Angular's scope.
+
+Support in Polymer
+------------------
+
+This will only work if the Polymer element publishes _and_ reflects attributes. That is, it is insufficient to declare attributes:
+
+```html
+<!-- THIS WON'T WORK!!! -->
+<polymer-element name="x-double" attributes="in out">
+  <template><!-- ... --></template>
+  <script>
+    // ...
+  </script>
+</polymer-element>
+```
+
+To mark the `out` attribute as reflectable, declare it as such with the `publish` property:
+
+```html
+<polymer-element name="x-double" attributes="in out">
+  <template><!-- ... --></template>
+  <script>
+    Polymer("x-double", {
+      publish: {
+        out: {value: 0, reflect: true}
+      },
+      // ...
+    });
+  </script>
+</polymer-element>
+```
+
+Unfortunately, core and paper elements tend not to reflect attributes at this time. This means that this directive will not work with them. Hopefully this will change in the near future.
