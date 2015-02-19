@@ -1,5 +1,6 @@
 angular.module('eee-c.angularBindPolymer', []).
 directive('bindPolymer', function() {
+  'use strict';
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -16,8 +17,9 @@ directive('bindPolymer', function() {
 
       // When Polymer sees a change to the bound variable,
       // $apply / $digest the changes here in Angular
-      new MutationObserver(function() { scope.$apply(); }).
-        observe(element[0], {attributes: true});
+      var observer = new MutationObserver(function(){ scope.$apply(); });
+      observer.observe(element[0], {attributes: true});
+      scope.$on('$destroy', function(){ observer.disconnect(); });
 
       for (var _attr in attrMap) { watch (_attr); }
 
