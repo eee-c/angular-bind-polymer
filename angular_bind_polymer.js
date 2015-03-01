@@ -1,44 +1,46 @@
 angular.module('eee-c.angularBindPolymer', []).
-directive('bindPolymer', function() {
+directive('bindPolymer', ['$parse', function($parse) {
   'use strict';
   return {
     restrict: 'A',
-    link: function(scope, element, attrs) {
+    scope : false,
+    compile: function bindPolymerCompile($element, $attr) {
       var attrMap = {};
-      for (var prop in attrs.$attr) {
-        if (prop != 'bindPolymer') {
-          var _attr = attrs.$attr[prop];
-          var _match = element.attr(_attr).match(/\{\{\s*([\.\w]+)\s*\}\}/);
+
+      for (var prop in $attr) {
+        if (angular.isString($attr[prop])) {
+          var _match = $attr[prop].match(/\{\{\s*([\.\w]+)\s*\}\}/);
           if (_match) {
-            attrMap[_attr] = _match[1];
+            attrMap[prop] = $parse(_match[1]);
           }
         }
       }
 
-      // When Polymer sees a change to the bound variable,
-      // $apply / $digest the changes here in Angular
-      var observer = new MutationObserver(function(){ scope.$apply(); });
-      observer.observe(element[0], {attributes: true});
-      scope.$on('$destroy', function(){ observer.disconnect(); });
+      return function bindPolymerLink(scope, element, attrs) {
 
-      for (var _attr in attrMap) { watch (_attr); }
+        // When Polymer sees a change to the bound variable,
+        // $apply / $digest the changes here in Angular
+        var observer = new MutationObserver(function processMutations(mutations) {
+          mutations.forEach(function processMutation(mutation) {
+            var attributeName, newValue, oldValue, getter;
+            attributeName = mutation.attributeName;
 
-      function watch(attr) {
-        scope.$watch(
-          function() { return element.attr(attr); },
-          function(value) {
-            var tokens = attrMap[attr].split(/\./);
-            var parent = scope;
-            for (var i=0; i<tokens.length-1; i++) {
-              if (typeof(parent[tokens[i]]) == 'undefined') {
-                parent[tokens[i]] = {};
+            if(attributeName in attrMap) {
+              newValue = element.attr(attributeName);
+              getter = attrMap[attributeName];
+              oldValue = getter(scope);
+
+              if(oldValue != newValue && angular.isFunction(getter.assign)) {
+                getter.assign(scope, newValue);
               }
-              parent = parent[tokens[i]];
             }
-            parent[tokens[tokens.length - 1]] = value;
-          }
-        );
+          });
+          scope.$apply();
+        });
+
+        observer.observe(element[0], {attributes: true});
+        scope.$on('$destroy', observer.disconnect.bind(observer));
       }
     }
   };
-});
+}]);
