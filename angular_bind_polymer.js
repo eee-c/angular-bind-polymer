@@ -2,7 +2,6 @@ angular.module('eee-c.angularBindPolymer', []).
 directive('bindPolymer', function() {
   return {
     restrict: 'A',
-    scope: {}, /* Scope added here */
     link: function(scope, element, attrs) {
       var attrMap = {};
       for (var prop in attrs.$attr) {
