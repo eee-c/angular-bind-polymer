@@ -22,18 +22,26 @@
     <link rel="import" href="test/x-double.html">
   </head>
   <body ng-app="smokeTest">
-    <div class="container">
+    <div class="container" ng-init="showForm = true">
       <h1>Smoke Test: angular-bind-polymer</h1>
 
+      <label>
+        <input type="checkbox" ng-model="showForm">
+        Hide the polymer element using <code>ngIf</code>. Currently <span ng-bind="showForm ? 'hided' : 'shown'"></span>
+      </label>
+
+      <div ng-if="showForm">
       <p>
         in:<br>
-        <input type=text value="6" ng-model=in>
+        <input type=text value="6" ng-model="in">
+        <pre ng-bind="in"></pre>
       </p>
       <p>
         out:
         <pre ng-bind="doubled"></pre>
       </p>
-      <x-double bind-polymer in="{{in}}" out="{{doubled}}"></x-double>
+        <x-double bind-polymer in="{{in}}" out="{{doubled}}" disabled test="test"></x-double>
+      </div>
     </div>
   </body>
 </html>
