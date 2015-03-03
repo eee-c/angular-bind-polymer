@@ -1,7 +1,7 @@
 angular-bind-polymer
 ====================
 
-Angular directive for *double* variable binding of Polymer attributes. 
+Angular directive for *double* variable binding of Polymer attributes.
 
 N.B. This will not work with raw paper/core elements because they do not publish their attributes. See note below on Polymer Usage for details.
 
@@ -84,3 +84,12 @@ To mark the `out` attribute as reflectable, declare it as such with the `publish
 ```
 
 Unfortunately, core and paper elements tend not to reflect attributes at this time. This means that this directive will not work with them. Hopefully this will change in the near future.
+
+Contributors
+------------
+
+Much thanks to everyone that has helped with suggestions. In particular, thanks to the following for code improvements:
+
+ * [Jan-Willem Gmelig Meyling](https://github.com/JWGmeligMeyling)
+ * [Mark Daggett](https://github.com/heavysixer)
+ * [Pascal Precht](https://github.com/PascalPrecht)
