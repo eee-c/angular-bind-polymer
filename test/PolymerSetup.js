@@ -63,6 +63,10 @@ beforeEach(function(done) {
       Polymer.whenPolymerReady(done);
       return;
     }
+    if (HTMLImports && HTMLImports.whenReady) {
+      HTMLImports.whenReady(done);
+      return;
+    }
     setTimeout(waitForPolymer, 200);
   }
   waitForPolymer();

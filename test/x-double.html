@@ -1,10 +1,19 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<polymer-element name="x-double" attributes="in out">
+<dom-module name="x-double" attributes="in out">
   <template></template>
   <script>
-    Polymer("x-double", {
-      publish: {
-        out: {value: 0, reflect: true}
+    Polymer({
+      is: "x-double",
+      properties: {
+        in: {
+          type: Number,
+          value: 0,
+          observer: 'inChanged'
+        },
+        out: {
+          type: Number,
+          reflectToAttribute: true
+        }
       },
       ready: function(){
         this.inChanged();
@@ -14,4 +23,4 @@
       }
     });
   </script>
-</polymer-element>
+</dom-module>
