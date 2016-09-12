@@ -19,11 +19,17 @@ container.appendChild(container1);
 
 var container2 = document.createElement('div');
 container2.innerHTML =
-  '<pre ng-bind="answer2a"></pre>' +
-  '<x-double bind-polymer in="1" out="{{answer2a}}"></x-double>' +
-  '<pre ng-bind="answer2b"></pre>' +
-  '<x-double bind-polymer in="1" out="{{answer2b}}"></x-double>';
+  '<pre ng-bind="answer2"></pre>' +
+  '<x-double bind-polymer in="1" out-value="{{answer2}}"></x-double>';
 container.appendChild(container2);
+
+var container3 = document.createElement('div');
+container3.innerHTML =
+  '<pre ng-bind="answer3a"></pre>' +
+  '<x-double bind-polymer in="1" out="{{answer3a}}"></x-double>' +
+  '<pre ng-bind="answer3b"></pre>' +
+  '<x-double bind-polymer in="1" out="{{answer3b}}"></x-double>';
+container.appendChild(container3);
 
 var object_container = document.createElement('div');
 object_container.innerHTML =

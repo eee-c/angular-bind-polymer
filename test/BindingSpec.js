@@ -44,6 +44,31 @@ describe('Double binding', function(done){
   });
 });
 
+describe('Custom Elements with dash attributes', function(){
+  // Build in setup, check expectations in tests
+  var ngElement, polymerElement;
+
+  beforeEach(function(done){
+    // The angular element is the first child (the <pre> tag)
+    ngElement = container2.children[0];
+    polymerElement = container2.children[1];
+
+    polymerElement.setAttribute('in', '2');
+
+    // Must wait one event loop for ??? to do its thing
+    setTimeout(done, 0); // One event loop for Polymer to process
+  });
+
+  it('sees polymer update properly', function(){
+    expect(polymerElement.getAttribute('out-value')).toEqual('4');
+  });
+
+  // The actual test
+  it('sees values from polymer', function(){
+    expect(ngElement.innerHTML).toEqual('4');
+  });
+});
+
 describe('Double binding multiple polymer instances', function(done){
   // Build in setup, check expectations in tests
   var ngElementA, polymerElementA;
@@ -51,10 +76,10 @@ describe('Double binding multiple polymer instances', function(done){
 
   beforeEach(function(done){
     // The angular element is the first child (the <pre> tag)
-    ngElementA =      container2.children[0];
-    polymerElementA = container2.children[1];
-    ngElementB =      container2.children[2];
-    polymerElementB = container2.children[3];
+    ngElementA =      container3.children[0];
+    polymerElementA = container3.children[1];
+    ngElementB =      container3.children[2];
+    polymerElementB = container3.children[3];
 
     polymerElementA.setAttribute('in', '2');
     polymerElementB.setAttribute('in', '4');

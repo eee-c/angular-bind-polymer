@@ -8,10 +8,18 @@ directive('bindPolymer', ['$parse', function($parse) {
       var attrMap = {};
 
       for (var prop in $attr) {
+        var dash_prop = prop.
+          replace(/([a-z])([A-Z])/g, '$1-$2').
+          toLowerCase();
+
         if (angular.isString($attr[prop])) {
           var _match = $attr[prop].match(/\{\{\s*([\.\w]+)\s*\}\}/);
           if (_match) {
+            // console.log(prop + ': ' + _match[1])
             attrMap[prop] = $parse(_match[1]);
+            if (dash_prop != prop) {
+              attrMap[dash_prop] = $parse(_match[1]);
+            }
           }
         }
       }

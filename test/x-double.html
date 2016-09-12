@@ -1,5 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<dom-module name="x-double" attributes="in out">
+<dom-module name="x-double" attributes="in out outValue">
   <template></template>
   <script>
     Polymer({
@@ -13,6 +13,10 @@
         out: {
           type: Number,
           reflectToAttribute: true
+        },
+        outValue: {
+          type: Number,
+          reflectToAttribute: true
         }
       },
       ready: function(){
@@ -20,6 +24,7 @@
       },
       inChanged: function(){
         this.out = parseInt(this.in) * 2;
+        this.outValue = parseInt(this.in) * 2;
       }
     });
   </script>
